@@ -32,8 +32,10 @@ namespace MongoExample1.Services
 
         public async Task<List<UserTest>> GetAsync()
         {
+            FilterDefinitionBuilder<UserTest> builder = Builders<UserTest>.Filter;
+            FilterDefinition<UserTest> filter = builder.Empty;
 
-            return await _usertestCollection.Find(new BsonDocument()).ToListAsync();
+            return await _usertestCollection.Find(filter).ToListAsync();
         }
 
         public async Task AddToUserTestAsync(string id, string uid)
