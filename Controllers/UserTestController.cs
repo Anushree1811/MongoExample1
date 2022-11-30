@@ -49,6 +49,11 @@ namespace MongoExample1.Controllers
             return NoContent();
         }
 
+
+
+
+
+
         // delete operation
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)

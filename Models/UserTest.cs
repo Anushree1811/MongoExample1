@@ -18,5 +18,8 @@ namespace MongoExample1.Models
         public string mname { get; set; } = null!;
 
         public string lname { get; set; } = null!;
+
+        public DateTime? ModifiedDate { get; set; }
+        public DateTime CreatedDate { get;  set; }
     }
 }

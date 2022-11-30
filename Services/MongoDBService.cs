@@ -26,7 +26,23 @@ namespace MongoExample1.Services
 
         public async Task CreateAsync(UserTest usertest)
         {
-            await _usertestCollection.InsertOneAsync(usertest);
+            usertest.CreatedDate= DateTime.Now;
+
+
+            List<UserTest> datas= new List<UserTest>();
+           
+
+
+            var ob1= new UserTest() { fname="vishnu",CreatedDate= DateTime.Now};
+            var ob2 = new UserTest() { fname = "Anushree", CreatedDate = DateTime.Now };
+
+            datas.Add(usertest);
+
+            datas.Add(ob1);
+            datas.Add(ob2);
+
+
+            await _usertestCollection.InsertManyAsync(datas);
             return;
         }
 
@@ -34,6 +50,13 @@ namespace MongoExample1.Services
         {
             FilterDefinitionBuilder<UserTest> builder = Builders<UserTest>.Filter;
             FilterDefinition<UserTest> filter = builder.Empty;
+
+            //filter = filter & builder.Gte(x => x.CreatedDate, request.StartDate);
+
+            //List<UserTest> transfers = await _dbContext.UserTransfers
+            //.Find(filter)
+            //.Sort(Builders<UserTest>.Sort.Descending(x => x.CreatedDate))
+            //.ToListAsync();
 
             return await _usertestCollection.Find(filter).ToListAsync();
         }
