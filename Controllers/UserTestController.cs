@@ -49,6 +49,15 @@ namespace MongoExample1.Controllers
             return NoContent();
         }
 
+        //update operations
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> AddToUserTest2(string id, [FromBody] UserTest tstObj)
+        {
+
+            await _mongoDBService.AddToUserTestAsync2(id, tstObj);
+            return NoContent();
+        }
+
 
 
 

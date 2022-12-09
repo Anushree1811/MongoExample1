@@ -63,9 +63,24 @@ namespace MongoExample1.Services
 
         public async Task AddToUserTestAsync(string id, string uid)
         {
+            //var filter = Builders<BsonDocument>.Filter.Eq("uid", uid);
+            //var update = Builders<BsonDocument>.Update.Set("class_id", 483);
+            //await _usertestCollection.UpdateOneAsync(filter, update);
+
+            //return;
 
             FilterDefinition<UserTest> filter = Builders<UserTest>.Filter.Eq("Id", id);
             UpdateDefinition<UserTest> update = Builders<UserTest>.Update.AddToSet<string>("uid", uid);
+            await _usertestCollection.UpdateOneAsync(filter, update);
+            return;
+        }
+
+        public async Task AddToUserTestAsync2(string id, UserTest tstObj)
+        {
+            Console.WriteLine(tstObj);
+
+            FilterDefinition<UserTest> filter = Builders<UserTest>.Filter.Eq("Id", id);
+            UpdateDefinition<UserTest> update = Builders<UserTest>.Update.Set("fname",tstObj.fname).Set("mname",tstObj.mname);
             await _usertestCollection.UpdateOneAsync(filter, update);
             return;
         }
