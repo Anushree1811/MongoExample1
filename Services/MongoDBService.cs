@@ -77,10 +77,25 @@ namespace MongoExample1.Services
 
         public async Task AddToUserTestAsync2(string id, UserTest tstObj)
         {
-            Console.WriteLine(tstObj);
+            //Console.WriteLine(tstObj);
+
+            //FilterDefinition<UserTest> filter = Builders<UserTest>.Filter.Eq("Id", id);
+            //UpdateDefinition<UserTest> update = Builders<UserTest>.Update.Set("fname",tstObj.fname).Set("mname",tstObj.mname);
+            //await _usertestCollection.UpdateOneAsync(filter, update);
+            //return;
+
+            //var filter = Builders<Customer>.Filter
+            // .Eq(s => s.uid, tstObj.uid);
 
             FilterDefinition<UserTest> filter = Builders<UserTest>.Filter.Eq("Id", id);
-            UpdateDefinition<UserTest> update = Builders<UserTest>.Update.Set("fname",tstObj.fname).Set("mname",tstObj.mname);
+            UpdateDefinition<UserTest> update = Builders<UserTest>.Update.Set(p => p.uid, tstObj.uid);
+            if (!string.IsNullOrWhiteSpace(tstObj.fname))
+                update = update.Set(p => p.fname, tstObj.fname);
+            if (!string.IsNullOrWhiteSpace(tstObj.mname))
+                update = update.Set(p => p.mname, tstObj.mname);
+            if (!string.IsNullOrWhiteSpace(tstObj.lname))
+                update = update.Set(p => p.lname, tstObj.lname);
+
             await _usertestCollection.UpdateOneAsync(filter, update);
             return;
         }

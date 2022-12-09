@@ -49,7 +49,7 @@ namespace MongoExample1.Controllers
             return NoContent();
         }
 
-        //update operations
+        //patch operations
         [HttpPatch("{id}")]
         public async Task<IActionResult> AddToUserTest2(string id, [FromBody] UserTest tstObj)
         {
